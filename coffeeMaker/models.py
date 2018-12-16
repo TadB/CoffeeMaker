@@ -1,4 +1,4 @@
-from coffee_maker import db
+from coffeeMaker import db
 
 
 class Coffee(db.Model):
