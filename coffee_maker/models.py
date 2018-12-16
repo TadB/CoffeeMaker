@@ -14,6 +14,7 @@ class Coffee(db.Model):
 
 class Tank(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Strin(64), index=True, unique=True)
     capacity = db.Column(db.Integer)
     current_amount = db.Column(db.Integer)
     is_needful = db.Column(db.bool)

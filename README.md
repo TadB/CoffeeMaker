@@ -1,7 +1,7 @@
 # Coffee Maker simulation
 
 ## Description
-This is a simple simulation of coffee maker. It simulates preparing perfect coffee edge. americano, espresso, latte etc. 
+This is a simple simulation of coffee maker. It simulates preparing perfect coffee e.g. americano, espresso, latte etc. 
 User after push appropriate button may see usage of the necessary component of coffee (milk, water, etc.) Current amount of components is described for the user. 
 There is also service button - change layout to service mode, when the user can fill up a selected tank. It can be full or partially refilled.
 
