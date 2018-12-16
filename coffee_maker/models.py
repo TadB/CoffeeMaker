@@ -14,10 +14,9 @@ class Coffee(db.Model):
 
 class Tank(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Strin(64), index=True, unique=True)
+    name = db.Column(db.String(64), index=True, unique=True)
     capacity = db.Column(db.Integer)
     current_amount = db.Column(db.Integer)
-    is_needful = db.Column(db.bool)
 
     def __repr__(self):
-        return f'<{self.name} Tank, Current amount: {self.current_amount}>'
+        return f'<{self.name}, Current amount: {self.current_amount}>'
