@@ -1,1 +1,1 @@
-[{"name": "Water Tank", "capacity": 1000, "current_amount": 0 }, {"name": "Beans Tank", "capacity": 500, "current_amount": 0 }, {"name": "Grounds Tank", "capacity": 200, "current_amount": 0 }, {"name": "Milk Tank", "capacity": 500, "current_amount": 0 }]
+[{"name": "Water Tank", "capacity": 1000, "current_amount": 500 }, {"name": "Beans Tank", "capacity": 500, "current_amount": 300 }, {"name": "Grounds Tank", "capacity": 200, "current_amount": 0 }, {"name": "Milk Tank", "capacity": 500, "current_amount": 300 }]
