@@ -7,3 +7,10 @@ class CoffeeTypesForm(FlaskForm):
     latte = SubmitField('Caffè latte')
     americano = SubmitField('Caffè americano')
     cappucino = SubmitField('Cappuccino')
+
+
+class ServiceForm(FlaskForm):
+    water = SubmitField('Water Tank')
+    milk = SubmitField('Milk Tank')
+    grounds = SubmitField('Grounds Tank')
+    beans = SubmitField('Beans Tank')

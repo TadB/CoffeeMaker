@@ -44,6 +44,9 @@ def refill(t_name, amount):
 
 def full_refill(t_name):
     tank = Tank.query.filter(Tank.name == t_name).first()
-    tank.current_amount = tank.capacity
+    if t_name == 'Grounds Tank':
+        tank.current_amount = 0
+    else:
+        tank.current_amount = tank.capacity
     db.session.commit()
     return
