@@ -3,21 +3,20 @@
     <div class="button-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <div class="row mb-2">
-                <div class="col">
-                    {{ form.water(class="btn btn-secondary form-control") }}
-                </div>
-                <div class="col">
-                    {{ form.beans(class="btn btn-secondary form-control") }}
-                </div>
+            <div class="form-group">
+                    {{ form.water_int(class="form-control", placeholder="enter new Water amount") }}
             </div>
-            <div class="row">
-                <div class="col">
-                    {{ form.grounds(class="btn btn-secondary form-control") }}
-                </div>
-                <div class="col">
-                    {{ form.milk(class="btn btn-secondary form-control") }}
-                </div>
+            <div class="form-group">
+                    {{ form.grounds_int(class="form-control", placeholder="enter new Grounds amount") }}
+            </div>
+            <div class="form-group">
+                    {{ form.milk_int(class="form-control", placeholder="enter new Milk amount") }}
+            </div>
+            <div class="form-group">
+                    {{ form.beans_int(class="form-control", placeholder="enter new Beans amount") }}
+            </div>
+            <div class="form-group">
+                    {{ form.submit(class="form-control btn btn-primary") }}
             </div>
         </form>
     </div>

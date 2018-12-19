@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField
+from wtforms import SubmitField, IntegerField
+from wtforms.validators import Optional
 
 
 class CoffeeTypesForm(FlaskForm):
@@ -10,7 +11,8 @@ class CoffeeTypesForm(FlaskForm):
 
 
 class ServiceForm(FlaskForm):
-    water = SubmitField('Water Tank')
-    milk = SubmitField('Milk Tank')
-    grounds = SubmitField('Grounds Tank')
-    beans = SubmitField('Beans Tank')
+    water_int = IntegerField(validators=[Optional()], label="Water Tank")
+    milk_int = IntegerField(validators=[Optional()], label="Milk Tank")
+    grounds_int = IntegerField(validators=[Optional()], label="Grounds Tank")
+    beans_int = IntegerField(validators=[Optional()], label="Beans Tank")
+    submit = SubmitField(label='Refill')

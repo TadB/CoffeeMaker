@@ -30,30 +30,25 @@ def make_coffee(c_name):
     milk_tank.current_amount -= coffee.milk
 
     db.session.commit()
-    # print(f"enjoy your delicious {coffee.name} :)")
     return True
 
 
 def refill(t_name, amount):
-    if isinstance(int, amount):
+    if isinstance(amount, int):
+        if amount < 0:
+            return 'Negative value is forbidden'
         tank = Tank.query.filter(Tank.name == t_name).first()
         # check if amount fit to empty space
-        if amount <= tank.capacity - tank.current_amount:
-            tank.current_amount += amount
-            db.session.commit()
-            return True
+        # Grounds need to be remove not add
+        if t_name == 'Grounds Tank':
+            if tank.current_amount == 0:
+                return 'Grounds level at minimum - no need for refill'
+            elif tank.current_amount < amount:
+                return 'You are trying to add more Grounds.'
+        # for other tank type
+        elif amount > tank.capacity:
+            return f'You are trying to overfill the {t_name} Tank. Nice try.'
+        tank.current_amount = amount
+        db.session.commit()
+        return f'{t_name} refilled successfuly!'
     return False
-
-
-def full_refill(t_name):
-    tank = Tank.query.filter(Tank.name == t_name).first()
-    if t_name == 'Grounds Tank':
-        if tank.current_amount == 0:
-            return False
-        tank.current_amount = 0
-    else:
-        if tank.current_amount == tank.capacity:
-            return False
-        tank.current_amount = tank.capacity
-    db.session.commit()
-    return True
