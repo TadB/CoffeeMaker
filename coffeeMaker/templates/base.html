@@ -19,9 +19,19 @@
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
                 {% block content %}{% endblock %}
             </div>
             <div class="col-md-4">
+                <p><a class="btn btn-success btn-block" href="{{url_for('main_panel')}}" role="button">Make Coffee</a></p>
                 <p><a class="btn btn-warning btn-block" href="{{url_for('service')}}" role="button">SERVICE</a></p>
                 <p><a class="btn btn-dark btn-block" href="{{url_for('home')}}" role="button">Suspend</a></p>
                 <div class="content-section">
@@ -40,5 +50,4 @@
         </div>
     </main>
 </body>
-
 </html>

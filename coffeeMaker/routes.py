@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, flash
 from coffeeMaker import app
 from coffeeMaker.forms import CoffeeTypesForm, ServiceForm
 from coffeeMaker.utils import make_coffee, full_refill
@@ -25,7 +25,12 @@ def main_panel():
             coffee_type = form.americano.label.text
         elif form.cappucino.data:
             coffee_type = form.cappucino.label.text
-        make_coffee(coffee_type)
+        check = make_coffee(coffee_type)
+        if check is True:
+            flash('Enjoy Your Coffee!', 'success')
+        else:
+            # flash('Not enought ingredients', 'warning')
+            flash(check, 'warning')
         return redirect(url_for('home'))
     return render_template(
         'choose_coffee.html', title='Select delicious coffee',
@@ -44,7 +49,10 @@ def service():
             tank_type = form.grounds.label.text
         elif form.beans.data:
             tank_type = form.beans.label.text
-        full_refill(tank_type)
+        if full_refill(tank_type):
+            flash(f'{tank_type} refilled!', 'success')
+        else:
+            flash(f'{tank_type} is full - no need to refill', 'info')
         return redirect(url_for('service'))
     return render_template(
         'service.html', title='Service menu', form=form, tanks=tanks)
