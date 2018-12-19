@@ -2,12 +2,15 @@ from flask import render_template, url_for, redirect
 from coffeeMaker import app
 from coffeeMaker.forms import CoffeeTypesForm, ServiceForm
 from coffeeMaker.utils import make_coffee, full_refill
+from coffeeMaker.models import Tank
+
+tanks = Tank.query.all()
 
 
 @app.route("/home")
 @app.route("/")
 def home():
-    return render_template('home.html')
+    return render_template('home.html', tanks=tanks)
 
 
 @app.route("/choose", methods=['GET', 'POST'])
@@ -25,7 +28,8 @@ def main_panel():
         make_coffee(coffee_type)
         return redirect(url_for('home'))
     return render_template(
-        'choose_coffee.html', title='Select delicious coffee', form=form)
+        'choose_coffee.html', title='Select delicious coffee',
+        form=form, tanks=tanks)
 
 
 @app.route("/service", methods=['GET', 'POST'])
@@ -42,4 +46,5 @@ def service():
             tank_type = form.beans.label.text
         full_refill(tank_type)
         return redirect(url_for('service'))
-    return render_template('service.html', title='Service menu', form=form)
+    return render_template(
+        'service.html', title='Service menu', form=form, tanks=tanks)
