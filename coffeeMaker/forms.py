@@ -3,4 +3,7 @@ from wtforms import SubmitField
 
 
 class CoffeeTypesForm(FlaskForm):
-    submit = SubmitField('Espresso')
+    espresso = SubmitField('Espresso')
+    latte = SubmitField('Caffè latte')
+    americano = SubmitField('Caffè americano')
+    cappucino = SubmitField('Cappuccino')

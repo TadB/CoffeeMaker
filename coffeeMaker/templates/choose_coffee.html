@@ -3,8 +3,21 @@
     <div class="button-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ form.submit(class="btn btn-primary") }}
+            <div class="row mb-2">
+                <div class="col">
+                    {{ form.espresso(class="btn btn-primary form-control") }}
+                </div>
+                <div class="col">
+                    {{ form.americano(class="btn btn-primary form-control") }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ form.latte(class="btn btn-primary form-control") }}
+                </div>
+                <div class="col">
+                    {{ form.cappucino(class="btn btn-primary form-control") }}
+                </div>
             </div>
         </form>
     </div>

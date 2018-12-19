@@ -14,8 +14,15 @@ def home():
 def main_panel():
     form = CoffeeTypesForm()
     if form.validate_on_submit():
-        input = str(form.submit.label.text)
-        make_coffee(input)
+        if form.espresso.data:
+            coffee_type = form.espresso.label.text
+        elif form.latte.data:
+            coffee_type = form.latte.label.text
+        elif form.americano.data:
+            coffee_type = form.americano.label.text
+        elif form.cappucino.data:
+            coffee_type = form.cappucino.label.text
+        make_coffee(coffee_type)
         return redirect(url_for('home'))
     return render_template(
         'choose_coffee.html', title='Select delicious coffee', form=form)
