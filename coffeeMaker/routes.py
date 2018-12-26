@@ -41,12 +41,19 @@ def service():
     form = ServiceForm()
     if form.validate_on_submit():
         for field in form:
-            if field.data and field.name is not "submit":
-                refill_amount = field.data
-                if isinstance(field.data, int):
+            if field.name is not "submit":
+                try:
+                    refill_amount = int(field.data)
                     tank_type = field.label.text
                     result = refill(tank_type, refill_amount)
                     flash(f'{result}', 'info')
+                except ValueError:
+                    pass
+                # because 0 is not accepted in wtforms as number but False/None
+                except TypeError:
+                    if type(field.data) is None:
+                        result = refill(field.label.text, 0)
+                        flash(f'{result}', 'info')
         return redirect(url_for('service'))
     tanks = Tank.query.all()
     return render_template(
