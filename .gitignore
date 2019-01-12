@@ -117,3 +117,6 @@ dmypy.json
 # Data base files
 *.db
 *.sqlite3
+
+# Local files
+todo.md
