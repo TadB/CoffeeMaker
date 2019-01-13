@@ -1,18 +1,19 @@
 from flask import render_template, url_for, redirect, flash
-from coffeeMaker import app
-from coffeeMaker.forms import CoffeeTypesForm, ServiceForm
+# from coffeeMaker import app
+from coffeeMaker.main.forms import CoffeeTypesForm, ServiceForm
 from coffeeMaker.utils import make_coffee, refill
 from coffeeMaker.models import Tank
+from coffeeMaker.main import bp
 
 
-@app.route("/home")
-@app.route("/")
+@bp.route("/home")
+@bp.route("/")
 def home():
     tanks = Tank.query.all()
     return render_template('home.html', tanks=tanks)
 
 
-@app.route("/choose", methods=['GET', 'POST'])
+@bp.route("/choose", methods=['GET', 'POST'])
 def main_panel():
     form = CoffeeTypesForm()
     if form.validate_on_submit():
@@ -29,14 +30,14 @@ def main_panel():
             flash('Enjoy Your Coffee!', 'success')
         else:
             flash(check, 'warning')
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     tanks = Tank.query.all()
     return render_template(
         'choose_coffee.html', title='Select delicious coffee',
         form=form, tanks=tanks)
 
 
-@app.route("/service", methods=['GET', 'POST'])
+@bp.route("/service", methods=['GET', 'POST'])
 def service():
     form = ServiceForm()
     if form.validate_on_submit():
@@ -54,7 +55,7 @@ def service():
                     if type(field.data) is None:
                         result = refill(field.label.text, 0)
                         flash(f'{result}', 'info')
-        return redirect(url_for('service'))
+        return redirect(url_for('main.service'))
     tanks = Tank.query.all()
     return render_template(
         'service.html', title='Service menu', form=form, tanks=tanks)
