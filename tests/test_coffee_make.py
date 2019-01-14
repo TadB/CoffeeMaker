@@ -10,14 +10,10 @@ def test_make_all_coffee(session):
     milk_lvl = 420
     grounds_lvl = 0
 
-    beans_tank = \
-        Tank.query.filter(Tank.name == 'Beans Tank').first()
-    water_tank = \
-        Tank.query.filter(Tank.name == 'Water Tank').first()
-    milk_tank = \
-        Tank.query.filter(Tank.name == 'Milk Tank').first()
-    grounds_tank = \
-        Tank.query.filter(Tank.name == 'Grounds Tank').first()
+    beans_tank = Tank.query.filter(Tank.name == 'Beans Tank').first()
+    water_tank = Tank.query.filter(Tank.name == 'Water Tank').first()
+    milk_tank = Tank.query.filter(Tank.name == 'Milk Tank').first()
+    grounds_tank = Tank.query.filter(Tank.name == 'Grounds Tank').first()
 
     beans_tank.current_amount = beans_lvl
     water_tank.current_amount = water_lvl
@@ -29,13 +25,10 @@ def test_make_all_coffee(session):
         beans_per_coffee = 9
         water_per_coffee = 30
         grounds_per_coffee = 9
-        nonlocal beans_lvl
+        nonlocal beans_lvl, water_lvl, grounds_lvl, milk_lvl
         beans_lvl -= c.coffee * beans_per_coffee
-        nonlocal water_lvl
         water_lvl -= c.coffee * water_per_coffee + c.water
-        nonlocal milk_lvl
         milk_lvl -= c.milk
-        nonlocal grounds_lvl
         grounds_lvl += c.coffee * grounds_per_coffee
 
     assert make_coffee("Espresso") is True
@@ -67,19 +60,38 @@ def test_make_all_coffee(session):
     assert grounds_tank.current_amount == grounds_lvl
 
 
-def test_water_empty(session):
+def test_empty_tanks(session):
     init_coffee(session)
     init_tanks(session)
-    beans_lvl = 30
+    beans_lvl = 100
+    water_lvl = 500
+    milk_lvl = 500
 
     beans_tank = Tank.query.filter(Tank.name == 'Beans Tank').first()
     water_tank = Tank.query.filter(Tank.name == 'Water Tank').first()
+    milk_tank = Tank.query.filter(Tank.name == 'Milk Tank').first()
     grounds_tank = Tank.query.filter(Tank.name == 'Grounds Tank').first()
-    beans_tank.current_amount = beans_lvl
 
+    beans_tank.current_amount = beans_lvl
     assert make_coffee("Espresso") == 'Not enough Water in the Tank'
     assert beans_tank.current_amount == beans_lvl
     assert water_tank.current_amount == 0
+    assert grounds_tank.current_amount == 0
+
+    water_tank.current_amount = water_lvl
+    assert make_coffee("Caffè latte") == 'Not enough Milk in the Tank'
+    assert beans_tank.current_amount == beans_lvl
+    assert water_tank.current_amount == water_lvl
+    assert milk_tank.current_amount == 0
+    assert grounds_tank.current_amount == 0
+
+    water_tank.current_amount = water_lvl
+    milk_tank.current_amount = milk_lvl
+    beans_tank.current_amount = 7
+    assert make_coffee("Caffè latte") == 'Not enough Coffee Beans in the Tank'
+    assert beans_tank.current_amount == 7
+    assert water_tank.current_amount == water_lvl
+    assert milk_tank.current_amount == milk_lvl
     assert grounds_tank.current_amount == 0
 
 
