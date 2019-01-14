@@ -47,7 +47,7 @@ def refill(t_name, amount):
                 return 'You are trying to add more Grounds.'
         # for other tank type
         elif amount > tank.capacity:
-            return f'You are trying to overfill the {t_name} Tank. Nice try.'
+            return f'You are trying to overfill the {t_name}. Nice try.'
         tank.current_amount = amount
         db.session.commit()
         return f'{t_name} refilled successfuly!'

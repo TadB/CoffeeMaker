@@ -60,7 +60,7 @@ def test_make_all_coffee(session):
     assert grounds_tank.current_amount == grounds_lvl
 
 
-def test_empty_tanks(session):
+def test_not_enough_ingredients(session):
     init_coffee(session)
     init_tanks(session)
     beans_lvl = 100
@@ -95,25 +95,6 @@ def test_empty_tanks(session):
     assert grounds_tank.current_amount == 0
 
 
-def test_not_enough_water(session):
-    init_coffee(session)
-    init_tanks(session)
-    beans_lvl = 100
-    water_lvl = 100
-
-    beans_tank = Tank.query.filter(Tank.name == 'Beans Tank').first()
-    water_tank = Tank.query.filter(Tank.name == 'Water Tank').first()
-    grounds_tank = Tank.query.filter(Tank.name == 'Grounds Tank').first()
-
-    beans_tank.current_amount = beans_lvl
-    water_tank.current_amount = water_lvl
-
-    assert make_coffee("Caffè americano") == 'Not enough Water in the Tank'
-    assert beans_tank.current_amount == beans_lvl
-    assert water_tank.current_amount == water_lvl
-    assert grounds_tank.current_amount == 0
-
-
 def init_tanks(session):
     tanks = [
         {"name": "Water Tank", "capacity": 1000, "current_amount": 0},
@@ -125,8 +106,6 @@ def init_tanks(session):
                  current_amount=tank['current_amount'])
         session.add(t)
     session.commit()
-
-# def test_make_latte(session):
 
 
 def init_coffee(session):
