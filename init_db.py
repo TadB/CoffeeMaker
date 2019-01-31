@@ -1,10 +1,12 @@
 from coffeeMaker.models import Coffee, Tank
-from coffeeMaker import db
+from app import app
+from flask_sqlalchemy import SQLAlchemy
 import json
 
 with open('coffee_types.json') as f:
     coffee_json = json.load(f)
 
+db = SQLAlchemy(app)
 for coffee in coffee_json:
     c = Coffee(name=coffee['name'], coffee=coffee['coffee'],
                milk=coffee['milk'], water=coffee['water'])
