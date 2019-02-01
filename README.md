@@ -12,6 +12,7 @@ There is also service button - change layout to service mode, when the user can 
 - make_coffe() function takes 1 argument in the string. Do not validate data type, it always be a string sending by buttons. The user doesn't have any other method to interact with function.
 
 ## Install:
+Use Python version 3.6
 1. pip install -r requirements.txt
 2. flask db upgrade
 3. python init_db.py
